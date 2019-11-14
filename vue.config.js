@@ -4,5 +4,5 @@ module.exports = {
   ],
   publicPath: "./",
   assetsDir: "",
-  outputDir: "../docs/viewer"
+  outputDir: "docs"
 }
