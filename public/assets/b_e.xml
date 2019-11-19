@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?><?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+               <teiHeader>
+                              <fileDesc>
+                                             <titleStmt>
+                                                            <title>Title</title>
+                                             </titleStmt>
+                                             <publicationStmt>
+                                                            <p>Publication Information</p>
+                                             </publicationStmt>
+                                             <sourceDesc>
+                                                            <p>Information about the source</p>
+                                             </sourceDesc>
+                              </fileDesc>
+               </teiHeader>
+               <text>
+                              <body>
+                                             <p>
+                                                            <s xml:id="YG0000000100">どの天皇様の御代であったか、女御とか更衣とかいわれる後宮がおおぜいいた中に、最上の貴族出身ではないが深い御愛寵を得ている人があった。</s>
+                                                            <s xml:id="YG0000000200">最初から自分こそはという自信と、親兄弟の勢力に恃む所があって宮中にはいった女御たちからは失敬な女としてねたまれた。</s>
+                                                            <s xml:id="YG0000000300">その人と同等、もしくはそれより地位の低い更衣たちはまして嫉妬の焔を燃やさないわけもなかった。</s>
+                                                            <s xml:id="YG0000000400">夜の御殿の宿直所から退る朝、続いてその人ばかりが召される夜、目に見耳に聞いて口惜しがらせた恨みのせいもあったかからだが弱くなって、心細くなった更衣は多く実家へ下がっていがちということになると、いよいよ帝はこの人にばかり心をお引かれになるという御様子で、人が何と批評をしようともそれに御遠慮などというものがおできにならない。</s>
+                                                            <lb/></p>
+                              </body>
+               </text>
+</TEI>

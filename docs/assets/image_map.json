@@ -1,0 +1,33 @@
+{
+    "@context": [
+      "http://iiif.io/api/presentation/2/context.json",
+      "http://codh.rois.ac.jp/iiif/curation/1/context.json"
+    ],
+    "@type": "cr:Curation",
+    "@id": "http://mp.ex.nii.ac.jp/api/curation/json/9ab5cac5-78e6-41b8-9d8f-ab00f57d7b64",
+    "label": "Curating list",
+    "selections": [
+      {
+        "@id": "http://mp.ex.nii.ac.jp/api/curation/json/9ab5cac5-78e6-41b8-9d8f-ab00f57d7b64/range1",
+        "@type": "sc:Range",
+        "label": "Manual curation by IIIF Curation Viewer",
+        "members": [
+          {
+            "@id": "https://iiif.dl.itc.u-tokyo.ac.jp/repo/iiif/c1ea8e6b-9403-4394-8619-96aad0ec6329/canvas/p5",
+            "@type": "sc:Canvas",
+            "label": "nij03-nijl_nijl_nijl_genjimonogatari_0000000001"
+          },
+          {
+            "@id": "https://iiif.dl.itc.u-tokyo.ac.jp/repo/iiif/c1ea8e6b-9403-4394-8619-96aad0ec6329/canvas/p6",
+            "@type": "sc:Canvas",
+            "label": "nij03-nijl_nijl_nijl_genjimonogatari_0000000002"
+          }
+        ],
+        "within": {
+          "@id": "https://nakamura196.github.io/genji/ugm/utokyo/manifest/01.json",
+          "@type": "sc:Manifest",
+          "label": "東大本"
+        }
+      }
+    ]
+  }

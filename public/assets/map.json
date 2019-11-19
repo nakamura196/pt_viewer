@@ -1,0 +1,15 @@
+{
+    "YG0000000100": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#0:25"
+    ],
+    "YG0000000200": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#26:35",
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#0:6"
+    ],
+    "YG0000000300": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#7:24"
+    ],
+    "YG0000000400": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#25:35"
+    ]
+  }

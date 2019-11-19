@@ -1,0 +1,28 @@
+{
+    "@context": [
+      "http://iiif.io/api/presentation/2/context.json",
+      "http://codh.rois.ac.jp/iiif/curation/1/context.json"
+    ],
+    "@type": "cr:Curation",
+    "@id": "http://mp.ex.nii.ac.jp/api/curation/json/9ab5cac5-78e6-41b8-9d8f-ab00f57d7b64",
+    "label": "Curating list",
+    "selections": [
+      {
+        "@id": "http://mp.ex.nii.ac.jp/api/curation/json/9ab5cac5-78e6-41b8-9d8f-ab00f57d7b64/range1",
+        "@type": "sc:Range",
+        "label": "Manual curation by IIIF Curation Viewer",
+        "members": [
+          {
+            "@id": "https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2#xywh=0,0,2808,3744",
+            "@type": "sc:Canvas",
+            "label": "nij03-nijl_nijl_nijl_genjimonogatari_0000000001"
+          }
+        ],
+        "within": {
+          "@id": "https://nakamura196.github.io/jpsearch/data/genji/manifest/01.json",
+          "@type": "sc:Manifest",
+          "label": "源氏物語 第1冊（国文学研究資料館）"
+        }
+      }
+    ]
+  }

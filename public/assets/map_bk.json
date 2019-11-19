@@ -1,0 +1,15 @@
+{
+    "nij03-nijl_nijl_nijl_genjimonogatari_0000000001": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#0:25"
+    ],
+    "nij03-nijl_nijl_nijl_genjimonogatari_0000000002": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#26:35",
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#0:6"
+    ],
+    "nij03-nijl_nijl_nijl_genjimonogatari_0000000003": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#7:24"
+    ],
+    "nij03-nijl_nijl_nijl_genjimonogatari_0000000004": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#25:35"
+    ]
+  }

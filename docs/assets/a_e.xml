@@ -1,0 +1,84 @@
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>源氏物語 第1冊</title>
+            <author>紫式部</author>
+            <respStmt>
+               <orgName ref="https://jpsearch.go.jp">Japan Search</orgName>
+               <resp>Publisher</resp>
+            </respStmt>
+            <respStmt>
+               <orgName ref="https://www.nihu.jp/">大学共同利用機関法人 人間文化研究機構</orgName>
+               <resp>Publisher</resp>
+            </respStmt>
+            <respStmt>
+               <orgName ref="http://base1.nijl.ac.jp/infolib/meta_pub/G0001501genji">絵入源氏物語</orgName>
+               <resp>Publisher</resp>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-11">TEI Encoding</resp>
+               <name>Satoru Nakamura</name>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-14">TEI Encoding Contributor</resp>
+               <name>Kazuhiro Okada</name>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-14">TEI Encoding Contributor</resp>
+               <name>Kiyonori Nagasaki</name>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-14">TEI Encoding Contributor</resp>
+               <name>Yasuyuki Kano</name>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-14">TEI Encoding Contributor</resp>
+               <name>So Miyagawa</name>
+            </respStmt>
+            <respStmt>
+               <resp when="2019-07-14">TEI Encoding Contributor</resp>
+               <name>Yuna Murata</name>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <distributor>Satoru Nakamura</distributor>
+            <date when="2019-07-11">2019年7月11日</date>
+            <availability>
+               <p>
+                  <ref target="http://creativecommons.org/licenses/by-nc/4.0/">クリエイティブ・コモンズ 表示 - 非営利 4.0 国際 ライセンス</ref></p>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <bibl>
+               <title ref="https://kotenseki.nijl.ac.jp/biblio/200003803/">源氏物語</title>
+               <author>紫式部</author>
+            </bibl>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <sourceDoc>
+      <surfaceGrp facs="https://nakamura196.github.io/jpsearch/data/genji/manifest/01.json">
+         <surface>
+            <graphic n="https://kotenseki.nijl.ac.jp/biblio/200003803/canvas/2" url="https://kotenseki.nijl.ac.jp/api/iiif/200003803/v4/NIIP/SA4-0026/SA4-0026-00002.tif/full/full/0/default.jpg"/>
+            <zone lrx="2808" lry="3744" ulx="0" uly="0" xml:id="zone_0001_0001">
+               <lb/>
+               <line xml:id="nij03-nijl_nijl_nijl_genjimonogatari_0000000001">
+                  <anchor corresp="yosano_genji_ids.xml#YG0000000100"/>
+                  いづれの御時にか女御更衣あまたさふらひ給ける
+               </line>
+               <lb/>
+               <line xml:id="nij03-nijl_nijl_nijl_genjimonogatari_0000000002">
+                  なかに。いとやむごとなききはにはあらぬが。
+               </line>
+               <lb/>
+               <line xml:id="nij03-nijl_nijl_nijl_genjimonogatari_0000000003">
+                  すぐれてときめき給ふありけり
+                  <anchor corresp="yosano_genji_ids.xml#YG0000000200"/>
+                  はじめよりわれ
+               </line>
+            </zone>
+         </surface>
+      </surfaceGrp>
+   </sourceDoc>
+</TEI>
