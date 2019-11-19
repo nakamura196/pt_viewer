@@ -1,30 +1,29 @@
 <template>
   <v-app>
     <v-content>
-
       <v-toolbar :dark="true" flat>
-          <v-toolbar-title>Parallel Text Viewer with TEI & IIIF</v-toolbar-title>
+        <v-toolbar-title>Parallel Text Viewer with TEI & IIIF</v-toolbar-title>
 
-          <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-          <v-btn icon @click.stop="dialog_settings = true">
-            <v-icon>mdi-settings</v-icon>
-          </v-btn>
+        <v-btn icon @click.stop="dialog_settings = true">
+          <v-icon>mdi-settings</v-icon>
+        </v-btn>
 
-          <v-btn icon @click.stop="dialog_information = true">
-            <v-icon>mdi-information</v-icon>
-          </v-btn>
-          <v-toolbar-items>
-            <v-btn text :href="return_url">{{return_label}}</v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
+        <v-btn icon @click.stop="dialog_information = true">
+          <v-icon>mdi-information</v-icon>
+        </v-btn>
+        <v-toolbar-items>
+          <v-btn text :href="return_url">{{return_label}}</v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
 
       <div :style="'height: '+height+'px;'">
         <splitpanes class="default-theme">
           <pane min-size="20">
             <iframe
               class="py-2 px-2"
-              src="https://nakamura196.github.io/genji/mirador2/index_params.html?params=[{&quot;manifest&quot;:&quot;https://nakamura196.github.io/genji/ugm/utokyo/manifest/01.json&quot;},{&quot;manifest&quot;:&quot;https://nakamura196.github.io/genji/ugm/kyushu/manifest/01.json&quot;},{&quot;manifest&quot;:&quot;https://nakamura196.github.io/genji/ugm/kyushu2/manifest/01.json&quot;}]&amp;annotationState=on"
+              :src="mirador_path"
               seamless="seamless"
               width="100%"
               :height="height+'px'"
@@ -36,12 +35,38 @@
               <pane class="py-2 mx-2">
                 <v-card class="scroll vertical" :flat="true">
                   <v-card-text class="mx-2 text--primary">
-                    <p class="display-1 text--primary">表示テスト</p>
+                    <h2 class="text--primary">{{label_main}}</h2>
 
+                    <br />
+
+                    <p v-for="(row, index) in data_main_e" :key="index">
+                      <span v-if="row.manifest">
+                        <!-- <b>p.{{ row.manifest }}</b
+                        >-->
+                        <img
+                          @click="clickIcon(row.id)"
+                          src="https://iiif.dl.itc.u-tokyo.ac.jp/images/iiif.png"
+                          style="width: 30px"
+                          class="mr-2"
+                        />
+                        <br />
+                      </span>
+                      <span
+                        v-for="(w, index2) in row.words"
+                        :key="index2"
+                        :style="hightlights.indexOf(w.id) != -1 ? 'background-color : yellow;' : null"
+                        :id="w.id"
+                        v-on:mouseover="mouseover_main"
+                        @click="scroll(w.id)"
+                      >{{w.value}}</span>
+                    </p>
+
+                    <!-- 
                     <div>
                       東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。
                       東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。
                     </div>
+                    -->
                   </v-card-text>
                 </v-card>
               </pane>
@@ -49,72 +74,65 @@
                 <v-card class="scroll vertical" :flat="true">
                   <v-list-item>
                     <v-card-text class="mx-2 text--primary">
-                    <p class="display-1 text--primary">表示テスト</p>
+                      <h2 class="text--primary">{{label_sub}}</h2>
 
-                    <div>
-                      東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。
-                      東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。
-                    </div>
-                  </v-card-text>
+                      <br />
+
+                      <p v-for="(row, index) in data_sub" :key="index">
+                        <span
+                          v-for="(w, index2) in row"
+                          :key="index2"
+                          :style="hightlights.indexOf(w.id) != -1 ? 'background-color : yellow;' : null"
+                          :id="w.id"
+                          v-on:mouseover="mouseover"
+                          @click="scroll(w.id)"
+                        >{{w.value}}</span>
+                      </p>
+
+                      <!-- 
+
+                      <div>
+                        東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。
+                        東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。東京大学総合図書館所蔵『源氏物語』の公開（2019年6月）を契機に、有志により「『源氏物語』研究にとって有意義なデジタル機能は何か」という検討が始まりました。その成果の一環として、ここに「デジタル源氏物語」を試験公開しました。 当サイトでは『源氏物語』に関する様々な関連データを収集・作成し、それらを結びつけることで、『源氏物語』研究はもちろん、古典籍を利用した教育・研究活動の一助となる環境の提案を目指しています。また研究目的以外でも、『源氏物語』を広く楽しんでもらえるような機能の提供も視野に入れ検討を進めています。
+                      </div>
+                      -->
+                    </v-card-text>
                   </v-list-item>
                 </v-card>
               </pane>
             </splitpanes>
           </pane>
         </splitpanes>
-
-        
       </div>
     </v-content>
 
-  <v-dialog
-      v-model="dialog_information"
-      width="600px"
-      >
+    <v-dialog v-model="dialog_information" width="600px">
       <v-card>
         <v-card-title class="headline">このツールの説明</v-card-title>
 
-        <v-card-text>
-          Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-        </v-card-text>
+        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn
-          color="secondary"
-            @click="dialog_information = false"
-          >
-            閉じる
-          </v-btn>
+          <v-btn color="secondary" @click="dialog_information = false">閉じる</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-dialog
-      v-model="dialog_settings"
-      width="600px"
-      >
+    <v-dialog v-model="dialog_settings" width="600px">
       <v-card>
         <v-card-title class="headline">設定</v-card-title>
 
-        <v-card-text>
-          Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-        </v-card-text>
+        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn
-          color="secondary"
-            @click="dialog_settings = false"
-          >
-            閉じる
-          </v-btn>
+          <v-btn color="secondary" @click="dialog_settings = false">閉じる</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </v-app>
 </template>
 
@@ -122,6 +140,8 @@
 // In your VueJS component.
 import { Splitpanes, Pane } from "splitpanes";
 import axios from "axios";
+
+//var convert = require("xml-js");
 
 export default {
   components: { Splitpanes, Pane },
@@ -133,10 +153,134 @@ export default {
       return_label: null,
       dialog_information: false,
       dialog_settings: false,
-      url_main: "https://nakamura196.github.io/kouigenjimonogatari/tei/01.xml",
-      url_sub:"",
-      test: ""
+      url_main: "",
+      url_sub: "",
+      test: "",
+      data_main: [],
+      data_sub: [],
+      data_main_e: [],
+      data_sub_e: [],
+      hightlights: [],
+      m_s_id_map: [],
+      s_m_id_map: [],
+      w_l_id_map: {},
+      l_w_id_map: {},
+      image_map: {},
+      label_main: "",
+      label_sub: "",
+      selected_manifests: [],
+      mirador_path: ""
     };
+  },
+  mounted: function() {
+    window.addEventListener("resize", this.handleResize);
+
+    let u = this.$route.query.u ? this.$route.query.u : "assets/config_e.json";
+
+    axios.get(u).then(response => {
+      let result = response.data;
+
+      this.return_url = result.return_url;
+      this.return_label = result.return_label;
+      this.url_main = result.url_main;
+
+      this.label_main = result.label_main;
+      this.label_sub = result.label_sub;
+
+      //画像との対応表の作成
+      let image_map_url = result.image_map;
+
+      axios.get(image_map_url).then(response => {
+        //Miradorの初期表示パラメータ
+        let params = [];
+
+        let curation_data = response.data;
+
+        let manifest_lines = [];
+
+        let image_map = {};
+
+        let selections = curation_data["selections"];
+        for (let i = 0; i < selections.length; i++) {
+          let selection = selections[i];
+          let within = selection.within;
+          let selection_label = within.label;
+          let manifest = within["@id"];
+          image_map[selection_label] = {
+            manifest: manifest,
+            data: {}
+          };
+          //初期表示用パラメータ
+          params.push({
+            manifest: manifest
+          });
+          //選択済み（表示用）manifestの一覧
+          this.selected_manifests.push(selection_label);
+
+          let members = selection.members;
+          for (let j = 0; j < members.length; j++) {
+            let member = members[j];
+            let manifest_line_id = member.label;
+            if (!manifest_lines[manifest_line_id]) {
+              manifest_lines.push(manifest_line_id);
+            }
+            image_map[selection_label].data[manifest_line_id] = member["@id"];
+          }
+        }
+        //mirador表示用の辞書
+        this.image_map = image_map;
+
+        this.mirador_path =
+          "https://nakamura196.github.io/genji/mirador2/index_params.html?params=" +
+          encodeURIComponent(JSON.stringify(params)) +
+          "&annotationState=on";
+
+        this.exec2main(result.url_main, manifest_lines);
+      });
+
+      let url_map = result.url_map;
+
+      axios.get(url_map).then(response => {
+        let s_m_id_map = response.data;
+
+        //create m_s_map
+        let m_s_id_map = {};
+        for (let sub_id in s_m_id_map) {
+          let main_id_arr = s_m_id_map[sub_id];
+          for (let i = 0; i < main_id_arr.length; i++) {
+            let main_id = main_id_arr[i];
+            if (!m_s_id_map[main_id]) {
+              m_s_id_map[main_id] = [];
+            }
+            m_s_id_map[main_id].push(sub_id);
+          }
+        }
+
+        this.m_s_id_map = m_s_id_map;
+        this.s_m_id_map = s_m_id_map;
+
+        //create w_l_id_map
+        let w_l_id_map = {};
+        let l_w_id_map = {};
+        for (let main_id in m_s_id_map) {
+          let tmp = main_id.split("#");
+          let line_id = tmp[0];
+          let range = tmp[1].split(":");
+          let start = range[0];
+          let end = range[1];
+
+          l_w_id_map[main_id] = [];
+          for (let i = start; i < end; i++) {
+            let word_id = line_id + "#" + i;
+            w_l_id_map[word_id] = main_id;
+            l_w_id_map[main_id].push(word_id);
+          }
+        }
+
+        this.w_l_id_map = w_l_id_map;
+        this.l_w_id_map = l_w_id_map;
+      });
+    });
   },
   watch: {
     $route() {
@@ -144,138 +288,173 @@ export default {
     }
   },
   methods: {
+    clickIcon(line_id) {
+      let selected_manifests = this.selected_manifests;
+      let params = [];
+      for (let i = 0; i < selected_manifests.length; i++) {
+        let manifest_label = selected_manifests[i];
+        let manifest_map = this.image_map[manifest_label].data;
+        if (manifest_map[line_id]) {
+          //let obj = manifest_map[line_id]
+          params.push({
+            manifest: this.image_map[manifest_label].manifest,
+            canvas: manifest_map[line_id]
+          });
+        }
+        this.mirador_path =
+          "https://nakamura196.github.io/genji/mirador2/index_params.html?params=" +
+          encodeURIComponent(JSON.stringify(params)) +
+          "&annotationState=on";
+      }
+    },
+    scroll(id) {
+      alert(id)
+    },
+    mouseover_main: function(data) {
+      if (
+        data.target.attributes.length > 0 &&
+        data.target.attributes[0].name == "id"
+      ) {
+        //単語IDの取得
+        let word_id = data.target.attributes[0].value;
+        //MainのLine IDの取得
+        let line_id = this.w_l_id_map[word_id];
+        let hightlights = [];
+        if (this.m_s_id_map[line_id]) {
+          //SubのLine IDの取得
+          let sub_ids = this.m_s_id_map[line_id];
+          hightlights = sub_ids;
+          //Sub IDについて回す
+          for (let i = 0; i < sub_ids.length; i++) {
+            let sub_id = sub_ids[i];
+            //MainのLine IDを取得する
+            let main_ids = this.s_m_id_map[sub_id];
+            for (let j = 0; j < main_ids.length; j++) {
+              let main_id = main_ids[j];
+              //MainのWord IDSを取得する
+              let word_ids = this.l_w_id_map[main_id];
+              hightlights = hightlights.concat(word_ids);
+            }
+          }
+        }
+        this.hightlights = hightlights;
+      }
+    },
+    mouseover: function(data) {
+      if (
+        data.target.attributes.length > 0 &&
+        data.target.attributes[0].name == "id"
+      ) {
+        let line_id = data.target.attributes[0].value;
+        let hightlights = [line_id];
+        if (this.s_m_id_map[line_id]) {
+          let main_ids = this.s_m_id_map[line_id];
+          for (let j = 0; j < main_ids.length; j++) {
+            let main_id = main_ids[j];
+            //MainのWord IDSを取得する
+            let word_ids = this.l_w_id_map[main_id];
+            hightlights = hightlights.concat(word_ids);
+          }
+        }
+        this.hightlights = hightlights;
+      }
+    },
     handleResize: function() {
       // resizeのたびにこいつが発火するので、ここでやりたいことをやる
       this.width = window.innerWidth;
       this.height = window.innerHeight;
-    }
-  },
-  mounted: function() {
-    window.addEventListener("resize", this.handleResize);
-
-    let u = this.$route.query.u ? this.$route.query.u : "https://api.myjson.com/bins/184z42"
-
-    axios
-      .get(u)
-      .then(response => {
-        let result = response.data;
-
-        this.return_url = result.return_url;
-        this.return_label = result.return_label;
-        this.url_main = result.url_main;
-      })
-
-    /*
-    this.return_url = this.$route.query.return_url
-      ? this.$route.query.return_url
-      : null;
-      */
-
-    this.url_main = this.$route.query.url_main
-      ? this.$route.query.url_main
-      : this.url_main
-
-    axios
-        .get(this.url_main, {
+    },
+    exec2main(url, manifest_lines) {
+      axios
+        .get(url, {
           responseType: "document"
         })
         .then(response => {
-          //let lines_org = {};
-          //this.lines_org = lines_org;
 
           let xml = response.data;
-          xml = new XMLSerializer().serializeToString(xml)
 
-          //var result1 = convert.xml2json(xml, {compact: true, spaces: 4});
-          var result2 = convert.xml2json(xml, {compact: false, spaces: 4});
-          //console.log(result1, '\n', result2);
-          result2 = JSON.parse(result2)
+          let target_element = "line";
+          let target_attr = "*|id";
 
-          let facsimile = result2.elements[0].elements[1]
-          this.test += facsimile
+          const lines = xml.querySelectorAll(
+            target_element + "[" + target_attr + "]"
+          );
 
-          let text = result2.elements[0].elements[2]
-
-
-          //console.log(facsimile)
-          let elements = text.elements[0].elements[0].elements
-          //console.log(elements)
-
-          for(var i = 0; i < elements.length; i++){
-            let el = elements[i]
-            if(el.name == "seg" && el.attributes.corresp){
-              //console.log(el)
-              let text = el.elements[0].text
-              //console.log(text)
-              this.test += text
-            }
-          }
-
-          /*
-          const lines = xml.querySelectorAll("seg[corresp]");
+          let data_main_e = [];
 
           for (let i = 0; i < lines.length; i++) {
             let line = lines[i];
-
             let line_id = line.attributes[0].value;
-            line_id = "l"+line_id.split("/data/")[1].replace(".json", "")
 
             let nodes = line.childNodes;
 
-            let line_obj = {
-              array: [],
-              selected: false
-            };
+            let line_text = "";
 
-            let line_index = Number(line_id.split("-")[1]);
-            if (line_index == 1) {
-              line_obj["page"] = Number(line_id.split("-")[0].slice(1));
-            }
-
-            lines_org[line_id] = line_obj;
+            let words = [];
 
             for (let j = 0; j < nodes.length; j++) {
               let node = nodes[j];
-
-              let obj = {
-                text: node.innerText || node.textContent
-              };
-
-              if (node.nodeType != Node.TEXT_NODE) {
-                let id = node.attributes[0].value.split("#")[1];
-
-                let stmt = xml.querySelector("note[*|id='" + id + "']");
-
-                obj["note"] = stmt.innerHTML;
-              }
-
-              line_obj["array"].push(obj);
+              let text = node.innerText || node.textContent;
+              line_text += text.trim();
             }
-            
+
+            for (let i = 0; i < line_text.length; i++) {
+              let w = line_text.slice(i, i + 1);
+              words.push({
+                value: w,
+                id: line_id + "#" + i
+              });
+            }
+
+            let line_obj = {
+              id: line_id,
+              words: words
+            };
+
+            //IIIF Manifestを表示する行の確認
+            if (manifest_lines.indexOf(line_id) != -1) {
+              line_obj["manifest"] = true;
+            }
+
+            data_main_e.push(line_obj);
+
+            this.data_main_e = data_main_e;
           }
-          */
-          
+
+
+          this.data_sub = [
+            [
+              {
+                value:
+                  "どの天皇様の御代であったか、女御とか更衣とかいわれる後宮がおおぜいいた中に、最上の貴族出身ではないが深い御愛寵を得ている人があった。",
+                id: "YG0000000100"
+              }
+            ],
+            [
+              {
+                value:
+                  "最初から自分こそはという自信と、親兄弟の勢力に恃む所があって宮中にはいった女御たちからは失敬な女としてねたまれた。",
+                id: "YG0000000200"
+              }
+            ],
+            [
+              {
+                value:
+                  "その人と同等、もしくはそれより地位の低い更衣たちはまして嫉妬の焔を燃やさないわけもなかった。",
+                id: "YG0000000300"
+              }
+            ],
+            [
+              {
+                value: "すくれて時めき給ありけりはしめより我",
+                id: "YG0000000400"
+              }
+            ]
+          ];
         });
-
-    /*
-    this.url_modern = this.$route.query.right
-      ? this.$route.query.right
-      : this.url_modern;
-    this.url_map = this.$route.query.map ? this.$route.query.map : this.url_map;
-    */
-
-    var convert = require('xml-js');
-    /*
-    var xml =
-    '<?xml version="1.0" encoding="utf-8"?>' +
-    '<note importance="high" logged="true">' +
-    '    <title>Happy</title>' +
-    '    <todo>Work</todo>' +
-    '    <todo>Play</todo>' +
-    '</note>';
-    */
-    
+    }
   },
+
   beforeDestroy: function() {
     window.removeEventListener("resize", this.handleResize);
   }
