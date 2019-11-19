@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
+import smoothScroll from "vue-smoothscroll";
+Vue.use(smoothScroll)
 
 Vue.config.productionTip = false
 
