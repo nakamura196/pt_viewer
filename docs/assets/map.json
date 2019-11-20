@@ -1,15 +1,27 @@
 {
     "YG0000000100": [
-        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#0:25"
+        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#0:35",
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#0:18"
     ],
     "YG0000000200": [
-        "https://w3id.org/kouigenjimonogatari/data/0005-01.json#26:35",
-        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#0:6"
+        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#18:35",
+        "https://w3id.org/kouigenjimonogatari/data/0005-03.json#0:17"
     ],
     "YG0000000300": [
-        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#7:24"
+        "https://w3id.org/kouigenjimonogatari/data/0005-03.json#17:34",
+        "https://w3id.org/kouigenjimonogatari/data/0005-04.json#0:9"
     ],
     "YG0000000400": [
-        "https://w3id.org/kouigenjimonogatari/data/0005-02.json#25:35"
+        "https://w3id.org/kouigenjimonogatari/data/0005-04.json#9:13",
+        "https://w3id.org/kouigenjimonogatari/data/0005-05.json#0:19",
+        "https://w3id.org/kouigenjimonogatari/data/0005-06.json#0:5",
+        "https://w3id.org/kouigenjimonogatari/data/0005-07.json#0:2"
+    ],
+    "YG0000000500": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-07.json#2:11"
+    ],
+    "YG0000000600": [
+        "https://w3id.org/kouigenjimonogatari/data/0005-07.json#11:20",
+        "https://w3id.org/kouigenjimonogatari/data/0005-08.json#0:19"
     ]
-  }
+}

@@ -1,7 +1,13 @@
 {
-    "return_url": "https://nakamura196.github.io/genji_vue/html/#/",
-    "return_label": "テスト",
-    "url_main": "assets/a.xml",
-    "url_sub": "assets/b.xml",
-    "url_map": "assets/map.json"
+  "return_url": "https://nakamura196.github.io/genji_vue/html/#/",
+  "return_label": "デジタル源氏物語",
+    "url_main": "assets/koui_01.xml",
+    "url_sub": "assets/yosano.xml",
+    "url_map": "assets/map.json",
+    "image_map": "assets/image_map.json",
+    "label_main": "校異源氏物語テキスト・きりつぼ",
+    "label_sub": "青空文庫・与謝野晶子訳",
+    "query_main": "seg[*|corresp]",
+    "query_sub": "s[*|id]",
+    "direction": "vertical"
   }

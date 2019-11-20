@@ -91,6 +91,7 @@
       </div>
     </v-content>
 
+    <!-- 
     <v-dialog v-model="dialog_information" width="600px">
       <v-card>
         <v-card-title class="headline">このツールの説明</v-card-title>
@@ -104,6 +105,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    -->
 
     <v-dialog v-model="dialog_settings" width="600px">
       <v-card>
@@ -164,7 +166,7 @@ export default {
   mounted: function() {
     window.addEventListener("resize", this.handleResize);
 
-    let u = this.$route.query.u ? this.$route.query.u : "assets/config_e.json";
+    let u = this.$route.query.u ? this.$route.query.u : "assets/config.json";
 
     axios.get(u).then(response => {
       let result = response.data;
