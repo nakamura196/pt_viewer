@@ -167,7 +167,7 @@ export default {
   mounted: function() {
     window.addEventListener("resize", this.handleResize);
 
-    let u = this.$route.query.u ? this.$route.query.u : "assets/config.json";
+    let u = this.$route.query.u ? this.$route.query.u : "https://nakamura196.github.io/genji/pt/koui/config.json";
 
     axios.get(u).then(response => {
       let result = response.data;
@@ -183,6 +183,10 @@ export default {
       let query_sub = result.query_sub;
 
       this.direction = result.direction;
+
+      if(result.layout){
+        this.layout = result.layout
+      }
 
       //画像との対応表の作成
       let image_map_url = result.image_map;
