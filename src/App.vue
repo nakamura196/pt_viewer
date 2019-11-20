@@ -129,7 +129,7 @@ import { Splitpanes, Pane } from "splitpanes";
 import axios from "axios";
 
 let mirador_prefix =
-  "https://nakamura196.github.io/genji/mirador2/index_params.html";
+  "https://nakamura196.github.io/genji/mirador/";
 
 //var convert = require("xml-js");
 
@@ -160,7 +160,8 @@ export default {
       label_sub: "",
       selected_manifests: [],
       mirador_path: "",
-      direction: "vertical"
+      direction: "vertical",
+      layout: "2x2"
     };
   },
   mounted: function() {
@@ -230,7 +231,7 @@ export default {
           mirador_prefix +
           "?params=" +
           encodeURIComponent(JSON.stringify(params)) +
-          "&annotationState=on";
+          "&annotationState=on&layout="+this.layout;
 
         this.exec2map(result.url_map);
         this.exec2main(result.url_main, manifest_lines, query_main);
@@ -260,7 +261,7 @@ export default {
           mirador_prefix +
           "?params=" +
           encodeURIComponent(JSON.stringify(params)) +
-          "&annotationState=on";
+          "&annotationState=on&layout="+this.layout;
       }
     },
     scroll(id) {
