@@ -9,10 +9,11 @@
         <v-btn icon @click.stop="dialog_settings = true">
           <v-icon>mdi-settings</v-icon>
         </v-btn>
-
+        <!-- 
         <v-btn icon @click.stop="dialog_information = true">
           <v-icon>mdi-information</v-icon>
         </v-btn>
+        -->
         <v-toolbar-items v-show="return_url">
           <v-btn text :href="return_url">{{return_label}}</v-btn>
         </v-toolbar-items>
@@ -28,6 +29,7 @@
               width="100%"
               :height="height+'px'"
               style="border: none;"
+              allow="fullscreen"
             ></iframe>
           </pane>
           <pane>
